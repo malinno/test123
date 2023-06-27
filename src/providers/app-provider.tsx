@@ -1,45 +1,47 @@
-import {createContext, useContext, useState} from "react";
-import ModifyQuestModal from "../components/ModifyQuestModal";
+import { createContext, useContext, useState } from 'react'
+import ModifyQuestModal from '../components/ModifyQuestModal'
 
 export const AppContext = createContext<
   Partial<{
-    questTypes: any[],
-    assumptions: string[],
-    prompt: string,
-    setQuestModal: (x: any) => void,
-    questModal: any,
-    setQuestTypes: (x: (prep) => any[]) => void
-}>>({})
+    questTypes: any[]
+    assumptions: string[]
+    prompt: string
+    setQuestModal: (x: any) => void
+    questModal: any
+    setQuestTypes: (x: (prep: any) => any[]) => void
+  }>
+>({})
 
 export function AppProvider(props: any) {
-
   const defaultQuestType = [
     {
-      name: "receive_money",
-      dataType: "number",
-      description: "Receive money from another source. This quest requires users to receive more than a certain amount of money"
+      name: 'receive_money',
+      dataType: 'number',
+      description:
+        'Receive money from another source. This quest requires users to receive more than a certain amount of money'
     },
     {
-      name: "pay_bill_via_pr",
-      dataType: "number",
-      description: "This quest requires users to pay his bill multiple times"
+      name: 'pay_bill_via_pr',
+      dataType: 'number',
+      description: 'This quest requires users to pay his bill multiple times'
     },
     {
-      name: "transfer",
-      dataType: "boolean",
-      description: "This quest requires user to make transfer transactions"
+      name: 'transfer',
+      dataType: 'boolean',
+      description: 'This quest requires user to make transfer transactions'
     },
     {
-      name: "saving",
-      dataType: "string",
-      description: "This quest requires user to deposit money into his saving account"
-    },
+      name: 'saving',
+      dataType: 'string',
+      description:
+        'This quest requires user to deposit money into his saving account'
+    }
   ]
 
   const defaultAssumption = [
     'User usually spend 1k to pay bills',
     'User with income more than 5k often deposit 1k to his saving account',
-    'Don\'t show \"pay_bills_via_qr\" to user without saving account.'
+    'Don\'t show "pay_bills_via_qr" to user without saving account.'
   ]
 
   const defaultPrompt = `Generate quests (wrapped in <quests> tag) based on the assumptions provided in <assumptions> and the user description provided in <user_description>, strictly follow the format instructions provided in <format-instructions>.
@@ -82,7 +84,6 @@ export function AppProvider(props: any) {
       </format-instructions>
 `
 
-
   const [questTypes, setQuestTypes] = useState(defaultQuestType)
   const [assumptions, setAssumptions] = useState(defaultAssumption)
   const [prompt, setPrompt] = useState(defaultPrompt)
@@ -105,7 +106,7 @@ export function AppProvider(props: any) {
       }}
     >
       {props.children}
-      <ModifyQuestModal/>
+      <ModifyQuestModal />
     </AppContext.Provider>
   )
 }
